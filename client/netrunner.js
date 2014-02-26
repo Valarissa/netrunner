@@ -6,7 +6,7 @@ exports.DeckList = require('./deck_list');
 exports.IdentityFactory = require('./identity_factory');
 exports.Runner = require('./runner');
 exports.Corp = require('./corp');
-exports.Card = require('./card');
+exports.CardFactory = require('./card_factory');
 
 function Netrunner(options) {
 

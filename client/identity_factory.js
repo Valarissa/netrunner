@@ -1,4 +1,4 @@
-var Card = require('./card')
+var CardFactory = require('./card_factory')
   , Corp = require('./corp')
   , Runner = require('./runner');
 
@@ -7,7 +7,7 @@ var IdentityFactory = {
     var identity;
 
     function buildFromId(id_id){
-      return Card.getFromAPIUsingID(id_id, function(json){ buildFromJSON(json); });
+      return CardFactory.getFromAPIUsingID(id_id, function(json){ buildFromJSON(json); });
     }
 
     function buildFromJSON(json){
