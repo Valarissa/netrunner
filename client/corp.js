@@ -18,4 +18,9 @@ function Corp(json){
 }
 Corp.prototype = Object.create(Identity.prototype);
 
+Corp.identityIDs = function(){
+  var id_list = ["02031"];
+  return id_list;
+}
+
 module.exports = Corp;

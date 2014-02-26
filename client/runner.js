@@ -19,4 +19,9 @@ Runner = function(json){
 }
 Runner.prototype = Object.create(Identity.prototype);
 
+Runner.identityIDs = function(){
+  var id_list = ["05030"];
+  return id_list;
+}
+
 module.exports = Runner;

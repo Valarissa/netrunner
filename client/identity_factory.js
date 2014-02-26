@@ -22,10 +22,9 @@ var IdentityFactory = {
     return identity;
   },
 
-  isIdentity: function(card_id){
-    var id_ids = ["05030", "02031"];
-
-    return id_ids.indexOf(card_id) >= 0;
+  identityList: function(){
+    var id_list = [].concat(Corp.identityIDs(), Runner.identityIDs());
+    return id_list;
   }
 }
 
