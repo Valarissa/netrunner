@@ -10,7 +10,7 @@ describe('DeckList', function(){
   before(function(){
     stubbed_method_holder = IdentityFactory.create;
     IdentityFactory.create = function(){
-      return {} // I'm an ID, I swear...
+      return {card_min:45} // I'm an ID, I swear...
     };
   });
 
@@ -23,6 +23,10 @@ describe('DeckList', function(){
                         ,"02031":1};
     });
 
+    var test_function = function(){
+      new DeckList(legit_deck_list);
+    }
+
     it('creates a DeckList from a JSON object', function(){
       dl = new DeckList(legit_deck_list);
       expect(dl).to.be.a(DeckList);
@@ -31,17 +35,22 @@ describe('DeckList', function(){
 
     it('requires an identity', function(){
       delete legit_deck_list["02031"];
-      expect(DeckList).withArgs(legit_deck_list).to.throwException(/deck list has no identity/i);
+      expect(test_function).to.throwException(/deck list has no identity/i);
     });
 
     it('verifies that there are no more than three copies per card', function(){
       legit_deck_list["00001"] = 4;
-      expect(DeckList).withArgs(legit_deck_list).to.throwException(/deck list cannot have more than 3 of any given card/i);
+      expect(test_function).to.throwException(/deck list cannot have more than 3 of any given card/i);
     });
 
     it('verifies that there are not two identities', function(){
       legit_deck_list["05030"] = 1;
-      expect(DeckList).withArgs(legit_deck_list).to.throwException(/deck list cannot have more than one identity/i);
+      expect(test_function).to.throwException(/deck list cannot have more than one identity/i);
+    });
+
+    it('verifies that the deck is not under the minimum deck size', function(){
+      delete legit_deck_list["00011"];
+      expect(test_function).to.throwException(/deck list must meet minimum deck size for given identity/i);
     });
   });
 

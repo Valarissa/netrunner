@@ -1,21 +1,21 @@
 var Identity = require('./identity');
 
 Runner = function(json){
-  function setFaction(faction, id){
+  function setFaction(faction){
     var corps = ["anarch", "criminal", "shaper"];
     if(corps.indexOf(faction) < 0) throw Error('Invalid corporate faction');
-    id.faction = faction;
+    this.faction = faction;
   }
 
-  function setRunnerAttributes(json, id){
-    id.link = json.baselink || 0;
-    id.memory = 4;
-    id.tags = 0;
+  function setRunnerAttributes(json){
+    this.link = json.baselink || 0;
+    this.memory = 4;
+    this.tags = 0;
   }
   Identity.call(this, json);
   this.side = "runner";
-  setFaction(json.faction_code, this);
-  setRunnerAttributes(json, this);
+  setFaction.call(this, json.faction_code);
+  setRunnerAttributes.call(this, json);
 }
 Runner.prototype = Object.create(Identity.prototype);
 

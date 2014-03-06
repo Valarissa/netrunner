@@ -1,16 +1,16 @@
 function Identity(json){
-  function setMinimumDeckSize(deck_size, id){
+  function setMinimumDeckSize(deck_size){
     if(deck_size == undefined) throw Error('Identities require a minimum deck size');
-    id.card_min = deck_size;
+    this.card_min = deck_size;
   }
 
-  function setMaximumInfluence(limit, id){
+  function setMaximumInfluence(limit){
     if(limit == undefined) throw Error('Identities require a maximum influence');
-    id.influence_max = limit;
+    this.influence_max = limit;
   }
 
-  setMinimumDeckSize(json.minimumdecksize, this);
-  setMaximumInfluence(json.influencelimit, this);
+  setMinimumDeckSize.call(this, json.minimumdecksize);
+  setMaximumInfluence.call(this, json.influencelimit);
 }
 
 module.exports = Identity;

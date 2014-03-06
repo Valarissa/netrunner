@@ -1,20 +1,20 @@
 var Identity = require('./identity');
 
 function Corp(json){
-  function setFaction(faction, id){
+  function setFaction(faction){
     var corps = ["jinteki", "weyland-consortium", "haas-bioroid", "nbn"];
     if(corps.indexOf(faction) < 0) throw Error('Invalid corporate faction');
-    id.faction = faction;
+    this.faction = faction;
   }
 
-  function setCorpAttributes(json, id){
-    id.bad_reputation = 0;
+  function setCorpAttributes(json){
+    this.bad_reputation = 0;
   }
 
   Identity.call(this, json);
   this.side = "corp";
-  setFaction(json.faction_code, this);
-  setCorpAttributes(json, this);
+  setFaction.call(this, json.faction_code);
+  setCorpAttributes.call(this, json);
 }
 Corp.prototype = Object.create(Identity.prototype);
 
