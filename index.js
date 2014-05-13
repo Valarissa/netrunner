@@ -1,2 +1,1 @@
-
-module.exports = require('./client/netrunner');
+module.exports = require('./lib/netrunner');

@@ -1,16 +1,17 @@
 var netrunner = require('../../')
+  , card_fixtures = require('../fixtures/')
   , DeckList = netrunner.DeckList
   , Card = netrunner.Card
-  , IdentityFactory = netrunner.IdentityFactory
   , expect = require('expect.js');
 
-var stubbed_method_holder;
+var stubbed_method_holder
+  , fixtures = new card_fixtures.Base();
 
 describe('DeckList', function(){
   before(function(){
-    stubbed_method_holder = IdentityFactory.create;
-    IdentityFactory.create = function(){
-      return {card_min:45} // I'm an ID, I swear...
+    stubbed_method_holder = CardFactory.getFromAPIUsingID;
+    CardFactory.getFromAPIUsingID = function(id, callback){
+      callback(fixtures.api_hash()[id]);
     };
   });
 
@@ -52,9 +53,13 @@ describe('DeckList', function(){
       delete legit_deck_list["00011"];
       expect(test_function).to.throwException(/deck list must meet minimum deck size for given identity/i);
     });
+
+    it('verifies that the deck is not over the maximum influence', function(){
+      expect(test_function).to.throwException(/deck list must not exceed identity's maximum influence/i);
+    });
   });
 
   after(function(){
-    IdentityFactory.create = stubbed_method_holder;
+    CardFactory.getFromAPIUsingID = stubbed_method_holder;
   });
 });
