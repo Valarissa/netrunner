@@ -55,7 +55,32 @@ describe('DeckList', function(){
     });
 
     it('verifies that the deck is not over the maximum influence', function(){
+      delete legit_deck_list["00001"];
+      legit_deck_list["00006"] = 3;
       expect(test_function).to.throwException(/deck list must not exceed identity's maximum influence/i);
+    });
+
+    it('verifies that a corp deck has the required amount of agenda points', function(){
+      legit_deck_list["00026"] = 1;
+      expect(test_function).to.throwException(/deck list has too many agenda points/i);
+
+      delete legit_deck_list["00026"];
+      delete legit_deck_list["00023"];
+      legit_deck_list["00016"] = 3;
+      legit_deck_list["02031"] = 1;
+      expect(test_function).to.throwException(/deck list has too few agenda points/i);
+    });
+
+    it('verifies that a corp deck cannot have agendas from another corp', function(){
+      delete legit_deck_list["00025"];
+      legit_deck_list["00027"] = 1;
+      expect(test_function).to.throwException(/another faction\'s agenda may not be included in a deck/i);
+    });
+
+    it('verifies that a corp deck cannot have a runner card', function(){
+      delete legit_deck_list["00001"];
+      legit_deck_list["00007"] = 1;
+      expect(test_function).to.throwException(/you can\'t have runner cards in a corp deck/i);
     });
   });
 
