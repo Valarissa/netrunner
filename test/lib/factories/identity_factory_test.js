@@ -1,5 +1,5 @@
-var netrunner = require('../../')
-  , card_fixtures = require('../fixtures/')
+var netrunner = require('../../../')
+  , card_fixtures = require('../../fixtures/')
   , IdentityFactory = netrunner.IdentityFactory
   , CardFactory = netrunner.CardFactory
   , expect = require('expect.js');
