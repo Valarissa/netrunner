@@ -12,21 +12,24 @@ var fixtures = new card_fixtures.Base()
 
 describe('IdentityFactory', function(){
   describe('#create', function(){
-    beforeEach(function(){
-      test_corp_id = CardFactory.create({json: example_corp_identity_json});
-      test_runner_id = CardFactory.create({json: example_runner_identity_json});
+    beforeEach(function(done){
+      CardFactory.create({json: example_corp_identity_json}, function(card){ 
+        test_corp_id = card;
+        done();
+      });
+    });
+    beforeEach(function(done){
+      CardFactory.create({json: example_runner_identity_json}, function(card){
+        test_runner_id = card;
+        done();
+      });
     });
 
-    it('constructs an identity from a card id', function(){
-      var stub_holder = CardFactory.getFromAPIUsingID;
-
-      CardFactory.getFromAPIUsingID = function(id, callback){
-        callback(example_corp_identity_json);
-      }
-
-      expect(CardFactory.create({id:"02031"})).to.eql(test_corp_id);
-
-      CardFactory.getFromAPIUsingID = stub_holder;
+    it('constructs an identity from a card id', function(done){
+      CardFactory.create({id:"02031"}, function(identity){
+        expect(identity).to.eql(test_corp_id);
+        done();
+      })
     });
 
     it('hass a minimum card count', function(){

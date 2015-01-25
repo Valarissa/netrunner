@@ -1,3 +1,6 @@
+var CardJSON = require('../../lib/card_json')
+  , CardFactory = require('../../lib/factories/card_factory');
+
 function Base(){}
 
 Base.prototype.corp_id = {"last-modified":"2014-01-24T06:40:16-05:00","code":"02031","title":"Jinteki: Replicating Perfection","type":"Identity","type_code":"identity","subtype":"Megacorp","subtype_code":"megacorp","text":"The Runner cannot run on remote servers. Ignore this ability until the end of the turn whenever the Runner runs on a central server.","cyclenumber":2,"faction":"Jinteki","faction_code":"jinteki","faction_letter":"j","influencelimit":15,"minimumdecksize":45,"number":31,"quantity":3,"setname":"Trace Amount","set_code":"ta","side":"Corp","side_code":"corp","uniqueness":false,"url":"http:\/\/netrunnerdb.com\/en\/card\/02031","nbopinions":0,"opinions":[]};
@@ -18,6 +21,7 @@ Base.prototype.runner_oof_icebreaker = {"last-modified":"2014-02-26T11:50:43-05:
 Base.prototype.api_hash = function(){
   return {
     '02031': this.corp_id,
+    '05030': this.runner_id,
     '00001': this.corp_if_ice,
     '00002': this.corp_if_ice,
     '00003': this.corp_if_ice,
@@ -39,6 +43,13 @@ Base.prototype.api_hash = function(){
     '00026': this.corp_one_point_agenda,
     '00027': this.corp_oof_agenda
   }
+}
+
+hash = Base.prototype.api_hash();
+for(var id in hash){
+  var json = CardFactory.create({json: hash[id]})
+    , card = new CardJSON({ card_id: id, card: json });
+  card.save( function(err){ if (err){console.log("Error seting up fixtures")} } );
 }
 
 module.exports = Base;
