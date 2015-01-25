@@ -1,10 +1,8 @@
+require('../support');
+
 var netrunner = require('../../')
-  , card_fixtures = require('../fixtures/')
   , DeckList = netrunner.DeckList
   , expect = require('expect.js');
-
-var stubbed_method_holder
-  , fixtures = new card_fixtures.Base();
 
 describe('DeckList', function(){
   describe('#new', function(){

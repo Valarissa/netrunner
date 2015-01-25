@@ -1,3 +1,4 @@
+require('../../support');
 var netrunner = require('../../../')
   , card_fixtures = require('../../fixtures/')
   , IdentityFactory = netrunner.IdentityFactory
