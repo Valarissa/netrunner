@@ -1,6 +1,6 @@
-require('../support');
+require('../../support');
 
-var netrunner = require('../../')
+var netrunner = require('../../../')
   , CardFactory = netrunner.CardFactory
   , expect = require('expect.js')
 
