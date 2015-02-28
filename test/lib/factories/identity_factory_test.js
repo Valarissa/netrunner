@@ -12,7 +12,7 @@ var fixtures = new card_fixtures.Base()
   , test_runner_id;
 
 describe('IdentityFactory', function(){
-  describe('#create', function(){
+  describe('::create', function(){
     beforeEach(function(done){
       CardFactory.create({json: example_corp_identity_json}, function(card){ 
         test_corp_id = card;

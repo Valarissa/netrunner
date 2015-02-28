@@ -2,16 +2,15 @@ require('../support');
 
 var netrunner = require('../../')
   , DeckList = netrunner.DeckList
+  , fixtures = require('../fixtures/')
+  , Base = new fixtures.Base()
   , expect = require('expect.js');
 
 describe('DeckList', function(){
   describe('#new', function(){
     var legit_deck_list;
     beforeEach(function(){
-      legit_deck_list = {"00001":3,"00002":3,"00003":3,"00004":3,"00005":3
-                        ,"00011":3,"00012":3,"00013":3,"00014":3,"00015":3
-                        ,"00021":3,"00022":3,"00023":3,"00024":3,"00025":3
-                        ,"02031":1};
+      legit_deck_list = Base.corp_legit_deck_list();
     });
 
 
